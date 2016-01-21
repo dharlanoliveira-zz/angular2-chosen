@@ -55,7 +55,6 @@ gulp.task('css', function () {
 gulp.task('libs', function () {
     var size = require('gulp-size');
     return gulp.src(PATHS.lib)
-        .pipe(size({showFiles: true, gzip: true}))
         .pipe(gulp.dest('dist/lib'));
 });
 

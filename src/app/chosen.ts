@@ -80,10 +80,8 @@ export class ChosenComponent implements OnInit, AfterViewInit, OnChanges, OnDest
     @Input() optionsGroups:Array<ChosenOptionsGroup>;
 
     chosenConfig:ChosenOptions = {};
-    groups:Array<ChosenOptionsGroup>;
 
     elementRef:ElementRef;
-
     selectElement:JQuery;
 
     constructor(@Inject(ElementRef) elementRef:ElementRef) {
