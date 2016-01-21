@@ -1,0 +1,21 @@
+<div>
+
+    <h3>Example 1 :</h3>
+
+    <chosen [multiple]="true" [options]="options" [(ngModel)]="selectedOptions"></chosen>
+
+    values : {{selectedOptions}}
+
+</div>
+
+
+<div>
+
+    <h3>Example 2 ( Groups ):</h3>
+
+    <chosen [multiple]="true" [options]="groupOptions" [optionsGroups]="groups" [(ngModel)]="groupSelectedOptions"></chosen>
+
+    values : {{groupSelectedOptions}}
+
+</div>
+

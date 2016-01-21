@@ -1,0 +1,12 @@
+{
+  "name": "angular2-chosen",
+  "version": "0.0.0",
+  "description": "",
+  "keywords": [],
+  "main": "",
+  "ignore": [],
+  "dependencies": {
+    "chosen": "~1.4.2"
+  },
+  "private": true
+}
