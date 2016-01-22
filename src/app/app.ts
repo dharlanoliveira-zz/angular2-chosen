@@ -28,7 +28,7 @@ export class App {
     groupSelectedOptions = ["tn"];
 
     // example 3
-    groupSelectedOptions2 = ["fr"];
+    groupSelectedOptions2 = "fr";
 
     constructor() {
 
