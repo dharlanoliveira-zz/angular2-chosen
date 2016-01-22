@@ -1,18 +1,15 @@
 import {CORE_DIRECTIVES} from 'angular2/common';
 import {Component} from 'angular2/core';
 import {ChosenOption} from "./chosen";
-import {ChosenComponent} from "./chosen";
-import {ChosenControlValueAccessor} from "./chosen";
 import {ChosenOptionsGroup} from "./chosen";
-
+import {Chosen} from "./chosen";
 
 @Component({
     selector: 'app',
     templateUrl: 'app/app.html',
-    directives: [CORE_DIRECTIVES, ChosenComponent, ChosenControlValueAccessor]
+    directives: [CORE_DIRECTIVES, Chosen]
 })
 export class App {
-
 
     // Example 1
     options:Array<ChosenOption> = [{value: "fr", label: "France"}, {value: "uk", "label": "United Kingdom"}, {value: "us", "label": "USA"}];
@@ -30,12 +27,12 @@ export class App {
 
     groupSelectedOptions = ["tn"];
 
+    // example 3
     groupSelectedOptions2 = ["fr"];
 
     constructor() {
 
     }
-
 }
 
 

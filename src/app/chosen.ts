@@ -1,5 +1,5 @@
 import {CORE_DIRECTIVES } from 'angular2/common';
-import {Component, View, OnInit, OnChanges,  AfterViewInit, OnDestroy, EventEmitter, Inject, ElementRef, Input, Output} from 'angular2/core';
+import {Component, View, OnInit, OnChanges, AfterViewInit, OnDestroy, EventEmitter, Inject, ElementRef, Input, Output} from 'angular2/core';
 
 import {Injectable } from 'angular2/core';
 
@@ -21,7 +21,7 @@ export interface ChosenOptionsGroup {
 @Component({
     selector: 'chosen',
     template: `
-<select  [id]="identifier" class="chosen-select" [multiple]="multiple"  >
+<select class="chosen-select" [multiple]="multiple"  >
 
 	<template [ngIf]="options != null">
 
@@ -67,7 +67,7 @@ export interface ChosenOptionsGroup {
     `,
     directives: [CORE_DIRECTIVES]
 })
-export class ChosenComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
+class ChosenComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
     @Output() change:EventEmitter<any>;
 
@@ -190,7 +190,7 @@ const CHOSEN_VALUE_ACCESSOR = CONST_EXPR(new Provider(
     host: {'(change)': 'onChange($event)', '(blur)': 'onTouched()'},
     bindings: [CHOSEN_VALUE_ACCESSOR]
 })
-export class ChosenControlValueAccessor implements ControlValueAccessor {
+class ChosenControlValueAccessor implements ControlValueAccessor {
 
     el:any;
 
@@ -222,4 +222,9 @@ export class ChosenControlValueAccessor implements ControlValueAccessor {
         this.onTouched = fn;
     }
 }
+
+export var Chosen:Array<any> = [
+    ChosenComponent,
+    ChosenControlValueAccessor
+];
 
