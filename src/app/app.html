@@ -2,7 +2,7 @@
 
     <h3>Example 1 :</h3>
 
-    <chosen [multiple]="true" [options]="options" [(ngModel)]="selectedOptions"></chosen>
+    <chosen [width]="'300px'" [multiple]="true" [options]="options" [(ngModel)]="selectedOptions"></chosen>
 
     values : {{selectedOptions}}
 
@@ -13,7 +13,7 @@
 
     <h3>Example 2 ( Groups ):</h3>
 
-    <chosen [multiple]="true" [options]="groupOptions" [optionsGroups]="groups" [(ngModel)]="groupSelectedOptions"></chosen>
+    <chosen [width]="'300px'" [multiple]="true" [options]="groupOptions" [optionsGroups]="groups" [(ngModel)]="groupSelectedOptions"></chosen>
 
     values : {{groupSelectedOptions}}
 
@@ -24,7 +24,7 @@
 
     <h3>Example 3 ( Single with allowSingleDeselect = true ):</h3>
 
-    <chosen [options]="groupOptions" [allowSingleDeselect]="true" [optionsGroups]="groups" [(ngModel)]="groupSelectedOptions2"></chosen>
+    <chosen [width]="'300px'" [options]="groupOptions" [allowSingleDeselect]="true" [optionsGroups]="groups" [(ngModel)]="groupSelectedOptions2"></chosen>
 
     values : {{groupSelectedOptions2}}
 

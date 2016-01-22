@@ -6,6 +6,7 @@ import {Injectable } from 'angular2/core';
 import {Directive, Renderer,  Self, forwardRef, Provider} from 'angular2/core';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from 'angular2/common';
 import {CONST_EXPR} from 'angular2/src/facade/lang';
+import {Host} from "angular2/core";
 
 export interface ChosenOption {
     value: string | number;
@@ -21,7 +22,7 @@ export interface ChosenOptionsGroup {
 @Component({
     selector: 'chosen',
     template: `
-<select class="chosen-select" [multiple]="multiple"  >
+<select [multiple]="multiple">
 
 	<template [ngIf]="options != null">
 
@@ -77,7 +78,7 @@ class ChosenComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
     @Input() disableSearch:boolean;
     @Input() disableSearchThreshold:number;
     @Input() enableSplitWordSearch:boolean;
-    @Input() inheritSelectClasses:boolean;
+    //@Input() inheritSelectClasses:boolean;
     @Input() maxSelectedOptions:number;
     @Input() noResultsText:string;
     @Input() placeholderTextMultiple:string;
@@ -95,6 +96,8 @@ class ChosenComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
     elementRef:ElementRef;
     selectElement:JQuery;
+
+    value:any = null;
 
     constructor(@Inject(ElementRef) elementRef:ElementRef) {
         this.elementRef = elementRef;
@@ -118,9 +121,9 @@ class ChosenComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
             this.chosenConfig.enable_split_word_search = this.enableSplitWordSearch;
         }
 
-        if (this.inheritSelectClasses != null) {
-            this.chosenConfig.inherit_select_classes = this.inheritSelectClasses;
-        }
+        /*if (this.inheritSelectClasses != null) {
+         this.chosenConfig.inherit_select_classes = this.inheritSelectClasses;
+         }*/
 
         if (this.maxSelectedOptions != null) {
             this.chosenConfig.max_selected_options = this.maxSelectedOptions;
@@ -146,6 +149,10 @@ class ChosenComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
             this.chosenConfig.single_backstroke_delete = this.singleBackstrokeDelete;
         }
 
+        if (this.width != null) {
+            this.chosenConfig.width = this.width;
+        }
+
         if (this.displayDisabledOptions != null) {
             this.chosenConfig.display_disabled_options = this.displayDisabledOptions;
         }
@@ -157,7 +164,14 @@ class ChosenComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
     ngOnChanges(changes) {
         if (this.selectElement != null) {
-            this.selectElement.trigger("chosen:updated");
+            // if ref data comes before data -> reset data and update
+            if (this.value != null && changes["options"] != null) {
+                setTimeout(()=> {
+                    this.selectElement.val(this.value);
+                    this.selectElement.trigger("chosen:updated");
+                    this.value = null;
+                });
+            }
         }
     }
 
@@ -202,14 +216,16 @@ class ChosenControlValueAccessor implements ControlValueAccessor {
 
     };
 
-    constructor(private _renderer:Renderer, private _elementRef:ElementRef) {
+    constructor(private _renderer:Renderer, private _elementRef:ElementRef, @Host() private chosenComponent:ChosenComponent) {
         this.el = this._elementRef.nativeElement;
     }
 
     writeValue(value:any):void {
+
         setTimeout(()=> {
             var selectElement = $(this.el).find("select");
             selectElement.val(value);
+            this.chosenComponent.value = value;
             selectElement.trigger('chosen:updated');
         });
     }
