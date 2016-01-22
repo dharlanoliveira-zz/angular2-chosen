@@ -25,6 +25,8 @@ export interface ChosenOptionsGroup {
 
 	<template [ngIf]="options != null">
 
+	    <option *ngIf="allowSingleDeselect"></option>
+
 		<template [ngIf]="optionsGroups == null">
 
 			<option *ngFor="#option of options" [value]="option.value">{{option.label}}</option>
@@ -69,12 +71,22 @@ export class ChosenComponent implements OnInit, AfterViewInit, OnChanges, OnDest
 
     @Output() change:EventEmitter<any>;
 
-    @Input('disable-search') disableSearch:boolean = true;
-    @Input('no-results-text')noResulText:string;
-    @Input('placeholder-text-multiple') placeholderTextMultiple:string;
-    @Input('placeholder-text-single')  placeholderTextSingle:string;
-    @Input('search-contains') searchContains:boolean = false;
-    @Input('multiple') multiple:boolean;
+    @Input() multiple:boolean;
+
+    @Input() allowSingleDeselect:boolean;
+    @Input() disableSearch:boolean;
+    @Input() disableSearchThreshold:number;
+    @Input() enableSplitWordSearch:boolean;
+    @Input() inheritSelectClasses:boolean;
+    @Input() maxSelectedOptions:number;
+    @Input() noResultsText:string;
+    @Input() placeholderTextMultiple:string;
+    @Input() placeholderTextSingle:string;
+    @Input() searchContains:boolean;
+    @Input() singleBackstrokeDelete:boolean;
+    @Input() width:number;
+    @Input() displayDisabledOptions:boolean;
+    @Input() displaySelectedOptions:boolean;
 
     @Input() options:Array<ChosenOption>;
     @Input() optionsGroups:Array<ChosenOptionsGroup>;
@@ -90,13 +102,32 @@ export class ChosenComponent implements OnInit, AfterViewInit, OnChanges, OnDest
     }
 
     ngOnInit() {
+        if (this.allowSingleDeselect != null) {
+            this.chosenConfig.allow_single_deselect = this.allowSingleDeselect;
+        }
 
         if (this.disableSearch != null) {
             this.chosenConfig.disable_search = this.disableSearch;
         }
 
-        if (this.noResulText != null) {
-            this.chosenConfig.no_results_text = this.noResulText;
+        if (this.disableSearchThreshold != null) {
+            this.chosenConfig.disable_search_threshold = this.disableSearchThreshold;
+        }
+
+        if (this.enableSplitWordSearch != null) {
+            this.chosenConfig.enable_split_word_search = this.enableSplitWordSearch;
+        }
+
+        if (this.inheritSelectClasses != null) {
+            this.chosenConfig.inherit_select_classes = this.inheritSelectClasses;
+        }
+
+        if (this.maxSelectedOptions != null) {
+            this.chosenConfig.max_selected_options = this.maxSelectedOptions;
+        }
+
+        if (this.noResultsText != null) {
+            this.chosenConfig.no_results_text = this.noResultsText;
         }
 
         if (this.placeholderTextMultiple != null) {
@@ -109,6 +140,18 @@ export class ChosenComponent implements OnInit, AfterViewInit, OnChanges, OnDest
 
         if (this.searchContains != null) {
             this.chosenConfig.search_contains = this.searchContains;
+        }
+
+        if (this.singleBackstrokeDelete != null) {
+            this.chosenConfig.single_backstroke_delete = this.singleBackstrokeDelete;
+        }
+
+        if (this.displayDisabledOptions != null) {
+            this.chosenConfig.display_disabled_options = this.displayDisabledOptions;
+        }
+
+        if (this.displaySelectedOptions != null) {
+            this.chosenConfig.display_selected_options = this.displaySelectedOptions;
         }
     }
 
